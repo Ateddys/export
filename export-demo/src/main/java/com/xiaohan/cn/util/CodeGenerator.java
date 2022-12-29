@@ -1,4 +1,4 @@
-//package com.xiaohan.cn.util;
+//package com.xiaohan.cn.com.xiaohan.cn.util;
 //
 //import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 //import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -12,9 +12,9 @@
 //import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 //import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 //
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Scanner;
+//import java.com.xiaohan.cn.util.ArrayList;
+//import java.com.xiaohan.cn.util.List;
+//import java.com.xiaohan.cn.util.Scanner;
 //
 ///***
 // * mybatisplus代码生成器

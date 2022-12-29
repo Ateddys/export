@@ -1,0 +1,27 @@
+##导入宏定义
+$!define
+
+##设置表后缀（宏定义）
+#setTableSuffix("Dao")
+
+##保存文件（宏定义）
+#save("/dao", "Dao.java")
+
+##包路径（宏定义）
+#setPackageSuffix("dao")
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import $!{tableInfo.savePackageName}.entity.$!tableInfo.name;
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * @auther ${author}
+ * @create ${cfg.dateTime}
+ * @describe $!{table.comment}数据访问层
+ */
+##表注释（宏定义）
+#tableComment("表数据库访问层")
+@Mapper
+public interface $!{tableName} extends BaseMapper<$!tableInfo.name> {
+
+        }

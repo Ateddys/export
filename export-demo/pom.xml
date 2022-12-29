@@ -17,12 +17,24 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>com.xiaohan.cn</groupId>
             <artifactId>export-common</artifactId>
         </dependency>
-
+        <!--mysql 连接驱动-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- lettuce pool 缓存连接池 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
