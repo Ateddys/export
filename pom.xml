@@ -97,13 +97,6 @@
                 <version>2.0.4</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/top.legendscloud/spring-cloud-legends-db-starter -->
-<!--            <dependency>-->
-<!--                <groupId>top.legendscloud</groupId>-->
-<!--                <artifactId>spring-cloud-legends-db-starter</artifactId>-->
-<!--                <version>${top.legendscloud}</version>-->
-<!--            </dependency>-->
-
             <!--mysql 连接驱动-->
             <dependency>
                 <groupId>mysql</groupId>
@@ -114,16 +107,6 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>3.2.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.2.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>2.3.28</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>

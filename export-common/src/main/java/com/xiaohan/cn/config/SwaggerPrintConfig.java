@@ -1,4 +1,4 @@
-package com.xiaohan.cn;
+package com.xiaohan.cn.config;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import lombok.extern.slf4j.Slf4j;
