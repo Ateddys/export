@@ -16,7 +16,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>common-api</module>
+        <module>export-common</module>
         <module>export-demo</module>
     </modules>
 
@@ -33,7 +33,7 @@
         <dependencies>
             <dependency>
                 <groupId>com.xiaohan.cn</groupId>
-                <artifactId>common-api</artifactId>
+                <artifactId>export-common</artifactId>
                 <version>${project.exportutil.version}</version>
             </dependency>
 
@@ -97,16 +97,38 @@
                 <version>2.0.4</version>
             </dependency>
 
-            <dependency>
-                <groupId>tk.mybatis</groupId>
-                <artifactId>mapper-spring-boot-starter</artifactId>
-                <version>2.0.2</version>
-            </dependency>
+            <!-- https://mvnrepository.com/artifact/top.legendscloud/spring-cloud-legends-db-starter -->
+<!--            <dependency>-->
+<!--                <groupId>top.legendscloud</groupId>-->
+<!--                <artifactId>spring-cloud-legends-db-starter</artifactId>-->
+<!--                <version>${top.legendscloud}</version>-->
+<!--            </dependency>-->
 
+            <!--mysql 连接驱动-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.46</version>
+            </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.4.2</version>
+                <version>3.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>3.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>2.3.28</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.47</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

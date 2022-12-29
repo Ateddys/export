@@ -1,6 +1,28 @@
 server:
+  ip: localhost
   port: 9000
 
+spring:
+  application:
+    name: export_demo
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${server.ip}:3306/life?characterEncoding=utf8&useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: 123456
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  # 控制台打印sql语句
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    # 逻辑删除配置
+    db-config:
+      logic-not-delete-value: 1
+      logic-delete-value: 0
 
 logging:
   pattern:
