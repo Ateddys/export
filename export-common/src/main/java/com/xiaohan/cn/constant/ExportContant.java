@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
  */
 public class ExportContant {
 
+    public static final String USER = "user";
+
     private ExportContant() {
     }
 
