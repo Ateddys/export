@@ -24,12 +24,6 @@
         <dependency>
             <groupId>com.xiaohan.cn</groupId>
             <artifactId>export-poi</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.xiaohan.cn</groupId>
-                    <artifactId>export-common</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!--mysql 连接驱动-->
         <dependency>

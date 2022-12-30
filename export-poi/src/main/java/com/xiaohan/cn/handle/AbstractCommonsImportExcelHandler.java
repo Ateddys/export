@@ -45,7 +45,6 @@ import static com.xiaohan.cn.constant.ExportContant.MAX_PARAMS;
  * @author teddy
  * @since 2022/12/30
  */
-@Configuration
 public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImportExcelRowHandler {
 
     Class<T> clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
