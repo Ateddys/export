@@ -10,6 +10,7 @@ import com.xiaohan.cn.enums.GenderEnum;
 import com.xiaohan.cn.mapper.TCatMapper;
 import com.xiaohan.cn.model.TCat;
 import com.xiaohan.cn.model.dto.TCatAddDto;
+import com.xiaohan.cn.model.dto.TCatDto;
 import com.xiaohan.cn.model.dto.TCatUpDataDto;
 import com.xiaohan.cn.service.TCatService;
 import lombok.extern.slf4j.Slf4j;
@@ -52,18 +53,24 @@ public class TCatServiceImpl extends ServiceImpl<TCatMapper, TCat> implements TC
     }
 
     @Override
-    public IPage<TCat> page(ReqPage<TCat> req) {
-        return page(pageUtils.page(req.getPage(), req.getSize(), req.isSort(), req.getSortName()), getBuildQueryWrapper(req.getData()));
+    public List<TCat> exportList(ReqPage<TCatDto> reqPage) {
+        return tCatConvertMapper.tCatDtoToTCats(this.page(reqPage).getRecords());
     }
 
     @Override
-    public List<TCat> listEntity(TCat tCat) {
-        return this.list(getBuildQueryWrapper(tCat));
+    public IPage<TCatDto> page(ReqPage<TCatDto> req) {
+        return page(pageUtils.page(req.getPage(), req.getSize(), req.isSort(), req.getSortName()),
+                getBuildQueryWrapper(tCatConvertMapper.tCatDtoToTCat(req.getData())));
     }
 
     @Override
-    public TCat loadById(Long id) {
-        return getById(id);
+    public List<TCatDto> listEntity(TCatDto tCatDto) {
+        return tCatConvertMapper.tCatToTCatDtos(this.list(getBuildQueryWrapper(tCatConvertMapper.tCatDtoToTCat(tCatDto))));
+    }
+
+    @Override
+    public TCatDto loadById(Long id) {
+        return tCatConvertMapper.tCatToTCatDto(getById(id));
     }
 
     @Override

@@ -27,7 +27,7 @@ public abstract class AbstractImportExcelRowHandler implements ImportExcelHandle
 
     // getHeaderRowNum
     private static final Integer HEADER_ROW_NUM = 1;
-    private static final Integer MAX_HEADER_ROW_NUM = 10000;
+    protected static final Integer MAX_HEADER_ROW_NUM = 10000;
 
     @Autowired
     private I18nUtils i18nUtils;

@@ -20,7 +20,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "TCat")
 @EqualsAndHashCode(callSuper = false)
 @Data
-@Builder
 @TableName("t_cat")
 public class TCat extends BaseEntity<Long, TCat> {
 

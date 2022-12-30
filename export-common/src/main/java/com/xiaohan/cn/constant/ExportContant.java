@@ -9,10 +9,13 @@ import java.util.regex.Pattern;
  */
 public class ExportContant {
 
-    public static final String USER = "user";
-
     private ExportContant() {
     }
+
+    /**
+     * 广场猫（表）
+     */
+    public static final String T_CAT = "t_cat";
 
     /**
      * 批量导入的最大参数个数

@@ -8,8 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import top.legendscloud.db.generator.LegendsCodeGenerator;
 
-@MapperScan({"com.xiaohan.cn.mapper", "com.xiaohan.cn.converts"})
-@SpringBootApplication
+
+@MapperScan("com.xiaohan.cn.mapper")
+@SpringBootApplication(scanBasePackages = "com.xiaohan.cn")
 public class ExportUtilDemoServiceApplication implements ApplicationRunner {
 
     @Autowired

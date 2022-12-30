@@ -6,6 +6,7 @@ package com.xiaohan.cn.constant;
  * @since 2022/12/29
  */
 public class BaseSymbol {
+
     public BaseSymbol() {
         // Do nothing because of X and Y.
     }
@@ -156,4 +157,9 @@ public class BaseSymbol {
      * HTTP请求类型：post
      */
     public static final String HTTP_REQUEST_TYPE_POST = "POST";
+
+    /**
+     * 时间
+     */
+    public static final String DATE = "date";
 }

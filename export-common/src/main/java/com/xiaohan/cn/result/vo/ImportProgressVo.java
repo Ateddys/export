@@ -1,5 +1,6 @@
 package com.xiaohan.cn.result.vo;
 
+import com.xiaohan.cn.constant.BaseSymbol;
 import com.xiaohan.cn.constant.ExportContant;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -33,7 +34,7 @@ public class ImportProgressVo implements Serializable {
     public ImportProgressVo(String name, String userName) {
         this.createdDate = new Date();
         this.status = ExportContant.ImportStatusEnum.IN_PROGRESS.getKey();
-        this.content.put(ExportContant.ImportProgressEnum.START_VALIDATE.getKey(), DateUtils.getDateTime() + " "
+        this.content.put(ExportContant.ImportProgressEnum.START_VALIDATE.getKey(), DateUtils.getSystemTime() + BaseSymbol.SPACE
                 + ExportContant.ImportProgressEnum.START_VALIDATE.getName() + userName);
         this.name = name;
     }

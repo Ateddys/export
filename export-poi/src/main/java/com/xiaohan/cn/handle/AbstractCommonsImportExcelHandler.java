@@ -5,13 +5,17 @@ import com.xiaohan.cn.cache.RedisUtil;
 import com.xiaohan.cn.constant.BaseSymbol;
 import com.xiaohan.cn.constant.ExportContant;
 import com.xiaohan.cn.exception.BaseException;
-import com.xiaohan.cn.importer.ImportResult;
-import com.xiaohan.cn.result.vo.UserInfo;
 import com.xiaohan.cn.importer.AbstractImportExcelRowHandler;
-import com.xiaohan.cn.service.SysConfigService;
+import com.xiaohan.cn.importer.ImportResult;
 import com.xiaohan.cn.result.vo.ImportProgressVo;
 import com.xiaohan.cn.result.vo.PropertyInfo;
 import com.xiaohan.cn.result.vo.SysConfig;
+import com.xiaohan.cn.result.vo.UserInfo;
+import com.xiaohan.cn.service.SysConfigService;
+import com.xiaohan.cn.util.DateUtils;
+import com.xiaohan.cn.util.ExcelUtils;
+import com.xiaohan.cn.util.ListUniqUtils;
+import com.xiaohan.cn.util.ResultUtil;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.locale.converters.DateLocaleConverter;
 import org.apache.commons.collections.CollectionUtils;
@@ -19,14 +23,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import com.xiaohan.cn.util.DateUtils;
-import com.xiaohan.cn.util.ExcelUtils;
-import com.xiaohan.cn.util.ListUniqUtils;
-import com.xiaohan.cn.util.ResultUtil;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -107,7 +105,8 @@ public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImpor
 
     /**
      * 获取数据集
-     * @param data 数据集
+     *
+     * @param data   数据集
      * @param result 导入信息
      */
     abstract void batchInsert(List<T> data, ImportResult result);
@@ -147,15 +146,15 @@ public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImpor
                 String result = ResultUtil.getImportResult(importResult);
                 this.updateImportProgressVo(importProgressVo.get(), ExportContant.ImportStatusEnum.FAIL.getKey()
                         , ExportContant.ImportProgressEnum.END_VALIDATE, result);
-            }else if(importResult.getSuccessRowCount() == 0){
+            } else if (importResult.getSuccessRowCount() == 0) {
                 this.updateImportProgressVo(importProgressVo.get(), ExportContant.ImportStatusEnum.SUCCESS.getKey()
                         , ExportContant.ImportProgressEnum.END_VALIDATE, importResult.getFailMsg());
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             this.updateImportProgressVo(importProgressVo.get(), ExportContant.ImportStatusEnum.FAIL.getKey()
                     , ExportContant.ImportProgressEnum.END_VALIDATE, e.getMessage());
             throw new BaseException(e.getMessage(), e);
-        }finally {
+        } finally {
             logger.info("清空数据缓存");
             this.masterData.remove();
             this.beanMap.remove();
@@ -168,12 +167,13 @@ public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImpor
 
     /**
      * 更新进度
+     *
      * @param importProgressVo 进度
      */
-    public void updateImportProgressVo(ImportProgressVo importProgressVo, Integer status,ExportContant.ImportProgressEnum importProgressEnum, String content) {
+    public void updateImportProgressVo(ImportProgressVo importProgressVo, Integer status, ExportContant.ImportProgressEnum importProgressEnum, String content) {
         importProgressVo.setLastModified(new Date());
         importProgressVo.setStatus(status);
-        importProgressVo.getContent().put(importProgressEnum.getKey(), DateUtils.getDateTime() + " " + importProgressEnum.getName() + content);
+        importProgressVo.getContent().put(importProgressEnum.getKey(), DateUtils.getSystemTime() + BaseSymbol.SPACE + importProgressEnum.getName() + content);
         redisUtils.hset(ExportContant.getImportRedisKey(importProgressVo.getName()), userInfo.get().getId(), importProgressVo);
     }
 
@@ -238,10 +238,10 @@ public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImpor
     /**
      * 组装map
      *
-     * @param key       属性key
-     * @param value     属性值（默认全部string）
-     * param extendMap 扩展字段map
-     * param beanMap   bean字段map
+     * @param key   属性key
+     * @param value 属性值（默认全部string）
+     *              param extendMap 扩展字段map
+     *              param beanMap   bean字段map
      */
     private void archive(String key, String value) {
         if (StringUtils.isBlank(value)) {
@@ -249,7 +249,7 @@ public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImpor
         }
         // 扩展字段
         if (BaseSymbol.Y.equals(propertyMap.get().get(key).getExtend())) {
-            extendMap.get().put(key.substring(key.indexOf('.')+1), value);
+            extendMap.get().put(key.substring(key.indexOf('.') + 1), value);
         }
         // 导入字段
         if (BaseSymbol.Y.equals(propertyMap.get().get(key).getRef())) {
@@ -275,9 +275,9 @@ public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImpor
             // 数据条数
             int size = masterData.get().size();
             // 一次性最大插入的数据条数
-            int maxCount = MAX_PARAMS/columnNum;
+            int maxCount = MAX_PARAMS / columnNum;
             // 拆分成n次插入
-            int times = size/maxCount + 1;
+            int times = size / maxCount + 1;
             // 更新导入进度
             this.updateImportProgressVo(importProgressVo.get(), ExportContant.ImportStatusEnum.IN_PROGRESS.getKey()
                     , ExportContant.ImportProgressEnum.START_SAVE, "");
@@ -287,23 +287,23 @@ public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImpor
                 Stream.iterate(0, n -> n + 1).limit(times).forEach(i -> {
                     List<T> collect = masterData.get().stream().skip((long) i * maxCount).limit(maxCount).collect(Collectors.toList());
                     batchInsert(collect, result);
-                    logger.info("成功导入第{}批次数据，条数：{}", i + 1 , collect.size());
+                    logger.info("成功导入第{}批次数据，条数：{}", i + 1, collect.size());
                     // 更新导入进度
                     currentNum.set(Math.min((i + 1) * maxCount, size));
                     this.updateImportProgressVo(importProgressVo.get(), ExportContant.ImportStatusEnum.IN_PROGRESS.getKey()
-                            , ExportContant.ImportProgressEnum.SAVING, currentNum  + " / " + size);
+                            , ExportContant.ImportProgressEnum.SAVING, currentNum + " / " + size);
                 });
             } catch (Exception e) {
                 // 入库结果
                 this.updateImportProgressVo(importProgressVo.get(), ExportContant.ImportStatusEnum.FAIL.getKey()
-                        , ExportContant.ImportProgressEnum.END_SAVE, "已入库：" + currentNum  + " / " + size + " 失败原因：" + e.getMessage());
+                        , ExportContant.ImportProgressEnum.END_SAVE, "已入库：" + currentNum + " / " + size + " 失败原因：" + e.getMessage());
                 throw new BaseException(e.getMessage(), e);
             }
             // 入库结果
             if (currentNum.intValue() < size) {
                 this.updateImportProgressVo(importProgressVo.get(), ExportContant.ImportStatusEnum.FAIL.getKey()
                         , ExportContant.ImportProgressEnum.END_SAVE, "失败");
-            }else {
+            } else {
                 this.updateImportProgressVo(importProgressVo.get(), ExportContant.ImportStatusEnum.SUCCESS.getKey()
                         , ExportContant.ImportProgressEnum.END_SAVE, "成功");
             }
@@ -324,7 +324,7 @@ public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImpor
      */
     @Override
     public int getMaxHandleRowNum() {
-        return 20000;
+        return MAX_HEADER_ROW_NUM;
     }
 
 }

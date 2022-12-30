@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xiaohan.cn.model.TCat;
 import com.xiaohan.cn.model.dto.TCatAddDto;
+import com.xiaohan.cn.model.dto.TCatDto;
 import com.xiaohan.cn.model.dto.TCatUpDataDto;
 import top.legendscloud.common.base.ReqPage;
 
@@ -18,19 +19,26 @@ import java.util.List;
 public interface TCatService extends IService<TCat> {
 
     /**
+     * 导出专用list
+     * @param reqPage 参数
+     * @return 数据
+     */
+    List<TCat> exportList(ReqPage<TCatDto> reqPage);
+
+    /**
      * 发布广场分页列表
      *
      * @return 分页
      */
-    IPage<TCat> page(ReqPage<TCat> req);
+    IPage<TCatDto> page(ReqPage<TCatDto> req);
 
     /**
      * 发布广场列表查询
      *
-     * @param tCat 参数对象
+     * @param tCatDto 参数对象
      * @return 列表
      */
-    List<TCat> listEntity(TCat tCat);
+    List<TCatDto> listEntity(TCatDto tCatDto);
 
     /**
      * 发布广场详情
@@ -38,7 +46,7 @@ public interface TCatService extends IService<TCat> {
      * @param id 主键id
      * @return 实体
      */
-    TCat loadById(Long id);
+    TCatDto loadById(Long id);
 
     /**
      * 发布广场新增

@@ -4,6 +4,7 @@ import com.xiaohan.cn.result.vo.ImportProgressVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 导入导出接口
@@ -34,7 +35,7 @@ public interface ExcelService<T> {
      * @param name 配置name
      * @param datas 数据源  List<***DTO>
      */
-    void exportData(HttpServletResponse response, String name, T datas);
+    void exportData(HttpServletResponse response, String name, List<T> datas);
 
     /**
      * 获取导入结果

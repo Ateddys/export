@@ -26,8 +26,32 @@ public class DateUtils {
         return LocalDateTime.now().toString();
     }
 
+    /**
+     * 格式化时间
+     * @param date 时间
+     * @param pattern 格式
+     * @return 字符串日期
+     */
     public static String formatDate(Date date, String pattern) {
         return new SimpleDateFormat(pattern).format(date);
+    }
+
+    /**
+     * 时间格式化
+     * @param value 时间
+     * @param pattern 格式规格
+     * @return 日期字符串
+     */
+    public static String parseDate(String value, String pattern) {
+        if (value == null) {
+            return BaseSymbol.EMPTY;
+        }
+
+        try {
+            return formatDate(new Date(Long.parseLong(value)), org.apache.commons.lang3.StringUtils.isEmpty(pattern) ? YYYY_MM_DD_HH_MM_SS : pattern);
+        } catch (Exception e) {
+            return value;
+        }
     }
 
     /**

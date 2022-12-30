@@ -1,11 +1,16 @@
 package com.xiaohan.cn.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.xiaohan.cn.constant.ExportContant;
 import com.xiaohan.cn.model.TCat;
 import com.xiaohan.cn.model.dto.TCatAddDto;
+import com.xiaohan.cn.model.dto.TCatDto;
 import com.xiaohan.cn.model.dto.TCatUpDataDto;
+import com.xiaohan.cn.service.ExcelService;
 import com.xiaohan.cn.service.TCatService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import top.legendscloud.common.base.ComReq;
@@ -14,6 +19,7 @@ import top.legendscloud.common.base.ReqPage;
 import top.legendscloud.common.base.dto.BaseDelDTO;
 import top.legendscloud.common.base.dto.BaseDelsDTO;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -29,31 +35,49 @@ import java.util.List;
 public class TCatController {
 
     private final TCatService tCatService;
+    private final ExcelService<TCat> excelService;
 
-    public TCatController(TCatService tCatService) {
+    public TCatController(TCatService tCatService, ExcelService<TCat> excelService) {
         this.tCatService = tCatService;
+        this.excelService = excelService;
+    }
+
+    @ApiOperation("导出")
+    @PostMapping("export")
+    @ApiImplicitParams({@ApiImplicitParam(
+            name = "filterModel",
+            paramType = "body",
+            required = true,
+            dataType = "FilterModel"
+    )})
+    public void export(@RequestBody ComReq<ReqPage<TCatDto>> comReq, HttpServletResponse response) {
+        excelService.exportData(
+                response,
+                ExportContant.T_CAT,
+                tCatService.exportList(comReq.getData())
+        );
     }
 
     @ApiOperation(value = "分页列表", notes = "分页列表")
     @PostMapping("/page")
-    public ComResp<IPage<TCat>> page(@Valid @RequestBody ComReq<ReqPage<TCat>> comReq) {
-        return new ComResp.Builder<IPage<TCat>>().fromReq(comReq)
+    public ComResp<IPage<TCatDto>> page(@Valid @RequestBody ComReq<ReqPage<TCatDto>> comReq) {
+        return new ComResp.Builder<IPage<TCatDto>>().fromReq(comReq)
                 .data(tCatService.page(comReq.getData()))
                 .success().build();
     }
 
     @ApiOperation(value = "发布广场列表查询", notes = "发布广场列表查询")
     @PostMapping("/listEntity")
-    public ComResp<List<TCat>> listEntity(@Valid @RequestBody ComReq<TCat> comReq) {
-        return new ComResp.Builder<List<TCat>>().fromReq(comReq)
+    public ComResp<List<TCatDto>> listEntity(@Valid @RequestBody ComReq<TCatDto> comReq) {
+        return new ComResp.Builder<List<TCatDto>>().fromReq(comReq)
                 .data(tCatService.listEntity(comReq.getData()))
                 .success().build();
     }
 
     @ApiOperation(value = "发布广场详情", httpMethod = "GET")
     @GetMapping(value = "/{id}")
-    public ComResp<TCat> loadById(@PathVariable ComReq<Long> comReq) {
-        return new ComResp.Builder<TCat>().fromReq(comReq)
+    public ComResp<TCatDto> loadById(@PathVariable ComReq<Long> comReq) {
+        return new ComResp.Builder<TCatDto>().fromReq(comReq)
                 .data(tCatService.loadById(comReq.getData()))
                 .success().build();
     }

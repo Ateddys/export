@@ -1,7 +1,6 @@
 package com.xiaohan.cn.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
 import com.xiaohan.cn.cache.RedisUtil;
@@ -9,16 +8,20 @@ import com.xiaohan.cn.cache.UserSessionUtil;
 import com.xiaohan.cn.constant.BaseSymbol;
 import com.xiaohan.cn.constant.ExportContant;
 import com.xiaohan.cn.exception.BaseException;
+import com.xiaohan.cn.exporter.ExportEntity;
 import com.xiaohan.cn.handle.AbstractCommonsImportExcelHandler;
 import com.xiaohan.cn.i18n.I18nUtils;
 import com.xiaohan.cn.result.MasterDataApiResultCode;
-import com.xiaohan.cn.result.vo.UserInfo;
-import com.xiaohan.cn.exporter.ExportEntity;
 import com.xiaohan.cn.result.vo.ImportProgressVo;
 import com.xiaohan.cn.result.vo.PropertyInfo;
 import com.xiaohan.cn.result.vo.SysConfig;
+import com.xiaohan.cn.result.vo.UserInfo;
 import com.xiaohan.cn.service.ExcelService;
 import com.xiaohan.cn.service.SysConfigService;
+import com.xiaohan.cn.util.DateUtils;
+import com.xiaohan.cn.util.ExcelFileResponse;
+import com.xiaohan.cn.util.ExcelUtils;
+import com.xiaohan.cn.util.MessageUtils;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
@@ -26,18 +29,15 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import com.xiaohan.cn.util.DateUtils;
-import com.xiaohan.cn.util.ExcelFileResponse;
-import com.xiaohan.cn.util.ExcelUtils;
-import com.xiaohan.cn.util.MessageUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 导入导出实现
@@ -63,19 +63,21 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
     private HttpServletRequest httpServletRequest;
 
     @Autowired
-    private final Map<String, AbstractCommonsImportExcelHandler> handlerMap = Maps.newConcurrentMap();
+    private final Map<String, AbstractCommonsImportExcelHandler<T>> handlerMap = Maps.newConcurrentMap();
 
     /**
      * 这个构造方法的作用，其实不用也可以，为了防止重复注入，因此先清空，再注入
+     *
      * @param handlerMap beanMap
      */
-    public ExcelServiceImpl(Map<String, AbstractCommonsImportExcelHandler> handlerMap) {
+    public ExcelServiceImpl(Map<String, AbstractCommonsImportExcelHandler<T>> handlerMap) {
         this.handlerMap.clear();
         handlerMap.forEach(this.handlerMap::put);
     }
 
     /**
      * 获取当前配置
+     *
      * @param name 所属数据name
      * @return sys
      */
@@ -86,12 +88,13 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
     @Override
     public ImportProgressVo result(String name) {
         Object obj = redisUtils.hget(ExportContant.getImportRedisKey(name), UserSessionUtil.getLoggedInUser().getId());
-        return obj == null ? null : (ImportProgressVo)obj;
+        return obj == null ? null : (ImportProgressVo) obj;
     }
 
     /**
      * 组装HeaderRowNames
-     * @param list 集合（导出/导入)
+     *
+     * @param list   集合（导出/导入)
      * @param config 当前数据配置
      * @return rows
      */
@@ -149,7 +152,7 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
                 handlerMap.get(name).handleSheet(userInfo, sheet);
             } catch (Exception e) {
                 // 入库结果
-                ImportProgressVo importProgressVo = (ImportProgressVo)redisUtils.hget(ExportContant.getImportRedisKey(name)
+                ImportProgressVo importProgressVo = (ImportProgressVo) redisUtils.hget(ExportContant.getImportRedisKey(name)
                         , userInfo.getId());
                 handlerMap.get(name).updateImportProgressVo(importProgressVo, ExportContant.ImportStatusEnum.FAIL.getKey()
                         , ExportContant.ImportProgressEnum.END_SAVE, e.getMessage());
@@ -159,7 +162,7 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
     }
 
     @Override
-    public void exportData(HttpServletResponse response, String name, T datas) {
+    public void exportData(HttpServletResponse response, String name, List<T> datas) {
         // 配置文件导出字段 属性映射
         SysConfig config = this.getConfig(name);
 
@@ -176,11 +179,10 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
         List<Object[]> list = new ArrayList<>();
 
         // 行数据集row
-        List<Object> row = new ArrayList<>();
+        List<String> row = new ArrayList<>();
 
-        JSONArray objects = JSON.parseArray(JSON.toJSONString(datas));
         JSONObject map;
-        for (Object bean : objects) {
+        for (T bean : datas) {
             for (String export : exportList) {
                 try {
                     PropertyInfo propertyInfo = propertyMap.get(export);
@@ -197,8 +199,8 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
                         String[] split = export.split("\\.");
                         map = JSON.parseObject(BeanUtils.getProperty(bean, split[0]));
                         property = (String) map.get(split[1]);
-                    } else if (propertyInfo.getElementType().contains("date")) {
-                        property = this.parseDate(BeanUtils.getProperty(bean, export), propertyInfo.getPattern());
+                    } else if (propertyInfo.getElementType().contains(BaseSymbol.DATE)) {
+                        property = DateUtils.parseDate(BeanUtils.getProperty(bean, export), propertyInfo.getPattern());
                     } else {
                         property = BeanUtils.getProperty(bean, export);
                     }
@@ -217,19 +219,5 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
         list.clear();
     }
 
-    private String parseDate(String value, String pattern) {
-        if (value == null) {
-            return BaseSymbol.EMPTY;
-        }
-        try {
-            // 默认值
-            if (StringUtils.isEmpty(pattern)) {
-                pattern = "yyyy-MM-dd HH:mm:ss";
-            }
-            return DateUtils.formatDate(new Date(Long.parseLong(value)), pattern);
-        } catch (Exception e) {
-            return value;
-        }
-    }
 
 }
