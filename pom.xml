@@ -53,12 +53,6 @@
                 <groupId>top.legendscloud</groupId>
                 <artifactId>spring-cloud-legends-db-starter</artifactId>
                 <version>${top.legendscloud}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.flywaydb</groupId>
-                        <artifactId>flyway-core</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <!--logBack-->
@@ -112,17 +106,7 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.0.5</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.0.5</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.velocity</groupId>
-                <artifactId>velocity-engine-core</artifactId>
-                <version>2.2</version>
+                <version>3.4.2</version>
             </dependency>
 
             <dependency>

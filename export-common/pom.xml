@@ -34,19 +34,22 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-engine-core</artifactId>
-        </dependency>
 
         <!-- spring-cloud-legends-common-->
         <dependency>
             <groupId>top.legendscloud</groupId>
             <artifactId>spring-cloud-legends-common</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/top.legendscloud/spring-cloud-legends-db-starter -->
+        <dependency>
+            <groupId>top.legendscloud</groupId>
+            <artifactId>spring-cloud-legends-db-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.flywaydb</groupId>
+                    <artifactId>flyway-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--lombok-->
         <dependency>
