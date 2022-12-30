@@ -1,7 +1,7 @@
 package com.xiaohan.cn.handle;
 
 import com.xiaohan.cn.importer.ImportResult;
-import com.xiaohan.cn.result.vo.UserInfo;
+import com.xiaohan.cn.vo.UserInfo;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

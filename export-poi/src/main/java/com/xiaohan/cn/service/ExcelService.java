@@ -1,6 +1,6 @@
 package com.xiaohan.cn.service;
 
-import com.xiaohan.cn.result.vo.ImportProgressVo;
+import com.xiaohan.cn.vo.ImportProgressVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -13,13 +13,6 @@ import java.util.List;
  * @since 2022/12/30
  */
 public interface ExcelService<T> {
-
-    /**
-     * 获取对应配置页面的row元素名
-     * @param name 配置name
-     * @return row元素集
-     */
-    String[] getHeaderRowNames(String name);
 
     /**
      * 导入excel文件

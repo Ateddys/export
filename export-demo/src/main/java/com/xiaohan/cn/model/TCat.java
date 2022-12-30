@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
  * @since 2022/12/30
  */
 @ApiModel(value = "TCat")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("t_cat")
 public class TCat extends BaseEntity<Long, TCat> {

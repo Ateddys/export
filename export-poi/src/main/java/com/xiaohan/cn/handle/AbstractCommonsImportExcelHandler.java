@@ -7,11 +7,11 @@ import com.xiaohan.cn.constant.ExportContant;
 import com.xiaohan.cn.exception.BaseException;
 import com.xiaohan.cn.importer.AbstractImportExcelRowHandler;
 import com.xiaohan.cn.importer.ImportResult;
-import com.xiaohan.cn.result.vo.ImportProgressVo;
-import com.xiaohan.cn.result.vo.PropertyInfo;
-import com.xiaohan.cn.result.vo.SysConfig;
-import com.xiaohan.cn.result.vo.UserInfo;
-import com.xiaohan.cn.service.SysConfigService;
+import com.xiaohan.cn.vo.ImportProgressVo;
+import com.xiaohan.cn.vo.PropertyInfo;
+import com.xiaohan.cn.model.TSysConfig;
+import com.xiaohan.cn.vo.UserInfo;
+import com.xiaohan.cn.service.TSysConfigService;
 import com.xiaohan.cn.util.DateUtils;
 import com.xiaohan.cn.util.ExcelUtils;
 import com.xiaohan.cn.util.ListUniqUtils;
@@ -85,7 +85,7 @@ public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImpor
      * 配置service
      */
     @Autowired
-    private SysConfigService sysConfigService;
+    private TSysConfigService TSysConfigService;
 
     /**
      * 校验器
@@ -122,9 +122,9 @@ public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImpor
         super.beforeHandleSheet(sheet);
         masterData.set(new ArrayList<>());
         // TODO 获取导出的字段  和 字段详情
-        SysConfig sysConfig = sysConfigService.getConfig(getConfigName());
-        this.exportList.set(sysConfig.getExportList());
-        this.propertyMap.set(sysConfig.getPropertyMap());
+        TSysConfig TSysConfig = TSysConfigService.getConfig(getConfigName());
+        this.exportList.set(TSysConfig.getExportList());
+        this.propertyMap.set(TSysConfig.getPropertyMap());
         this.extendMap.set(new HashMap<>());
         this.beanMap.set(new HashMap<>());
     }

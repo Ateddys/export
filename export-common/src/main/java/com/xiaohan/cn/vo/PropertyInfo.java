@@ -1,4 +1,4 @@
-package com.xiaohan.cn.result.vo;
+package com.xiaohan.cn.vo;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

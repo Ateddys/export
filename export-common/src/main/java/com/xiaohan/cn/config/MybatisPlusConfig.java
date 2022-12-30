@@ -1,13 +1,17 @@
 package com.xiaohan.cn.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Date;
+
 /**
- * mybatis 分页配置
+ * mybatis 分页配置、自动添加基础字段
  *
  * @author by teddy
  * @date 2022/12/29 9:46
@@ -25,4 +29,23 @@ public class MybatisPlusConfig {
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return interceptor;
     }
+
+    @Bean
+    public MetaObjectHandler metaObjectHandler() {
+        return new MetaObjectHandler() {
+            @Override
+            public void insertFill(MetaObject metaObject) {
+                this.strictInsertFill(metaObject, "status", Boolean.class, Boolean.TRUE);
+                this.strictInsertFill(metaObject, "createName", String.class, "admin");
+                this.strictInsertFill(metaObject, "create_time", Date.class, new Date());
+            }
+
+            @Override
+            public void updateFill(MetaObject metaObject) {
+                this.strictUpdateFill(metaObject, "lastName", String.class, "admin");
+                this.strictUpdateFill(metaObject, "last_time", Date.class, new Date());
+            }
+        };
+    }
+
 }

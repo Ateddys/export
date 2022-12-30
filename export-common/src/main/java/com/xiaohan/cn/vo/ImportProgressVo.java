@@ -1,4 +1,4 @@
-package com.xiaohan.cn.result.vo;
+package com.xiaohan.cn.vo;
 
 import com.xiaohan.cn.constant.BaseSymbol;
 import com.xiaohan.cn.constant.ExportContant;

@@ -22,7 +22,6 @@ public class BaseEntity<L, T extends Model<T>> extends Model<T> {
 
     private static final long serialVersionUID = 1L;
 
-    //    @JsonIgnore
     @ApiModelProperty("自增主键id")
     @TableId(value = "id", type = IdType.AUTO)
     private L id;

@@ -9,8 +9,6 @@ import com.xiaohan.cn.model.dto.TCatUpDataDto;
 import com.xiaohan.cn.service.ExcelService;
 import com.xiaohan.cn.service.TCatService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import top.legendscloud.common.base.ComReq;
@@ -44,12 +42,6 @@ public class TCatController {
 
     @ApiOperation("导出")
     @PostMapping("export")
-    @ApiImplicitParams({@ApiImplicitParam(
-            name = "filterModel",
-            paramType = "body",
-            required = true,
-            dataType = "FilterModel"
-    )})
     public void export(@RequestBody ComReq<ReqPage<TCatDto>> comReq, HttpServletResponse response) {
         excelService.exportData(
                 response,

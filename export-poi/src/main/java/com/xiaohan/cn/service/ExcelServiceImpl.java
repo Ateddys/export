@@ -1,4 +1,4 @@
-package com.xiaohan.cn.service.impl;
+package com.xiaohan.cn.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -10,18 +10,15 @@ import com.xiaohan.cn.constant.ExportContant;
 import com.xiaohan.cn.exception.BaseException;
 import com.xiaohan.cn.exporter.ExportEntity;
 import com.xiaohan.cn.handle.AbstractCommonsImportExcelHandler;
-import com.xiaohan.cn.i18n.I18nUtils;
+import com.xiaohan.cn.model.TSysConfig;
 import com.xiaohan.cn.result.MasterDataApiResultCode;
-import com.xiaohan.cn.result.vo.ImportProgressVo;
-import com.xiaohan.cn.result.vo.PropertyInfo;
-import com.xiaohan.cn.result.vo.SysConfig;
-import com.xiaohan.cn.result.vo.UserInfo;
-import com.xiaohan.cn.service.ExcelService;
-import com.xiaohan.cn.service.SysConfigService;
 import com.xiaohan.cn.util.DateUtils;
 import com.xiaohan.cn.util.ExcelFileResponse;
 import com.xiaohan.cn.util.ExcelUtils;
 import com.xiaohan.cn.util.MessageUtils;
+import com.xiaohan.cn.vo.ImportProgressVo;
+import com.xiaohan.cn.vo.PropertyInfo;
+import com.xiaohan.cn.vo.UserInfo;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
@@ -32,7 +29,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -51,16 +47,10 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private I18nUtils i18nUtils;
-
-    @Autowired
     private RedisUtil redisUtils;
 
     @Autowired
-    private SysConfigService sysConfigService;
-
-    @Autowired
-    private HttpServletRequest httpServletRequest;
+    private TSysConfigService TSysConfigService;
 
     @Autowired
     private final Map<String, AbstractCommonsImportExcelHandler<T>> handlerMap = Maps.newConcurrentMap();
@@ -81,49 +71,14 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
      * @param name 所属数据name
      * @return sys
      */
-    private SysConfig getConfig(String name) {
-        return sysConfigService.getConfig(name);
+    private TSysConfig getConfig(String name) {
+        return TSysConfigService.getConfig(name);
     }
 
     @Override
     public ImportProgressVo result(String name) {
         Object obj = redisUtils.hget(ExportContant.getImportRedisKey(name), UserSessionUtil.getLoggedInUser().getId());
         return obj == null ? null : (ImportProgressVo) obj;
-    }
-
-    /**
-     * 组装HeaderRowNames
-     *
-     * @param list   集合（导出/导入)
-     * @param config 当前数据配置
-     * @return rows
-     */
-    private String[] setHeaderRowNames(List<String> list, SysConfig config) {
-        // 得到属性配置
-        Map<String, PropertyInfo> propertyMap = config.getPropertyMap();
-        // 列名容器
-        List<String> headerRowNames = new ArrayList<>(list.size());
-        for (String key : list) {
-            if (propertyMap.containsKey(key)) {
-                String labelKey = propertyMap.get(key).getLabelKey();
-                String message = i18nUtils.getMessageWithRequest(labelKey, httpServletRequest);
-                if (message.equals(labelKey) && BaseSymbol.Y.equals(propertyMap.get(key).getExtend())) {
-                    // 扩展字段情况
-                    key = key.substring(key.lastIndexOf(BaseSymbol.DOT) + 1);
-                } else if (message.equals(labelKey) && BaseSymbol.Y.equals(propertyMap.get(key).getRef())) {
-                    // 导出字段情况
-                    key = key.substring(key.lastIndexOf(BaseSymbol.AT) + 1);
-                }
-                headerRowNames.add(message.equals(labelKey) ? key : message);
-            }
-        }
-        return headerRowNames.toArray(new String[list.size()]);
-    }
-
-    @Override
-    public String[] getHeaderRowNames(String name) {
-        SysConfig config = this.getConfig(name);
-        return setHeaderRowNames(config.getExportList(), config);
     }
 
     @Override
@@ -164,10 +119,10 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
     @Override
     public void exportData(HttpServletResponse response, String name, List<T> datas) {
         // 配置文件导出字段 属性映射
-        SysConfig config = this.getConfig(name);
+        TSysConfig config = this.getConfig(name);
 
         // 获取表头
-        String[] headerRowNames = this.setHeaderRowNames(config.getImportList(), config);
+        String[] headerRowNames = TSysConfigService.getHeaderRowNames(config);
 
         // 导出列配置
         List<String> exportList = config.getImportList();
