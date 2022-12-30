@@ -1,4 +1,4 @@
-package com.xiaohan.cn.poi.importer;
+package com.xiaohan.cn.importer;
 
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -6,7 +6,7 @@ import org.apache.poi.ss.usermodel.Sheet;
  * Excel导入处理接口
  *
  * @author teddy
- * @since 2022/12/20
+ * @since 2022/12/30
  */
 public interface ImportExcelHandler {
 

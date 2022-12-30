@@ -1,7 +1,7 @@
 package com.xiaohan.cn.util;
 
 import com.xiaohan.cn.exception.BaseException;
-import com.xiaohan.cn.poi.importer.ImportResult;
+import com.xiaohan.cn.importer.ImportResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -15,11 +15,11 @@ import java.util.List;
  * 结果处理工具类
  *
  * @author teddy
- * @since 2022/12/20
+ * @since 2022/12/29
  */
-public class ResultUtils {
+public class ResultUtil {
 
-    private ResultUtils() {
+    private ResultUtil() {
     }
 
     /**

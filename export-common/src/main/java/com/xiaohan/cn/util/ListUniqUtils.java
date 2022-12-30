@@ -8,11 +8,10 @@ import java.util.Set;
 import com.alibaba.ttl.TransmittableThreadLocal;
 
 /**
- * 
- * @Company: www.cyberway.com.cn
- * @Description: 校验时判断集合中的数据是否存在重复
- * @author harry
- * @date 2021
+ * 校验时判断集合中的数据是否存在重复
+ *
+ * @author teddy
+ * @since 2012/12/01
  *
  */
 public class ListUniqUtils {
@@ -26,7 +25,7 @@ public class ListUniqUtils {
 	 * 手动调用校验的过程中，如需要开启重复校验时调用该方法
 	 */
 	public static void start() {
-		UNIQ_VALIDATE.set(new HashMap<String, Set<Object>>());
+		UNIQ_VALIDATE.set(new HashMap<>());
 		isUniq("uniqValid", true);
 	}
 	/**
@@ -58,6 +57,7 @@ public class ListUniqUtils {
 		}
 		return isUniq;
 	}
+	
 	/**
 	 * 校验接受调用，释放资源
 	 */

@@ -1,4 +1,4 @@
-package com.xiaohan.cn.poi.importer;
+package com.xiaohan.cn.importer;
 
 import com.xiaohan.cn.exception.BaseException;
 import com.xiaohan.cn.i18n.I18nUtils;
@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +19,15 @@ import java.util.List;
  * Excel导入行处理抽象类
  *
  * @author teddy
- * @since 2022/12/20
+ * @since 2022/12/30
  */
 public abstract class AbstractImportExcelRowHandler implements ImportExcelHandler {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
+
+    // getHeaderRowNum
+    private static final Integer HEADER_ROW_NUM = 1;
+    private static final Integer MAX_HEADER_ROW_NUM = 10000;
 
     @Autowired
     private I18nUtils i18nUtils;
@@ -178,7 +181,7 @@ public abstract class AbstractImportExcelRowHandler implements ImportExcelHandle
      * @return 表头行数
      */
     protected int getHeaderRowNum() {
-        return 1;
+        return HEADER_ROW_NUM;
     }
 
     /**
@@ -209,7 +212,7 @@ public abstract class AbstractImportExcelRowHandler implements ImportExcelHandle
         if (getFailCellNum() != null) {
             isBlank = true;
             for (int i = 0; i < getFailCellNum(); i++) {
-                if (!ExcelUtils.isBankCell(row.getCell(i))) {
+                if (Boolean.FALSE.equals(ExcelUtils.isBankCell(row.getCell(i)))) {
                     isBlank = false;
                     break;
                 }
@@ -243,7 +246,7 @@ public abstract class AbstractImportExcelRowHandler implements ImportExcelHandle
      * @return 最大处理行数
      */
     protected int getMaxHandleRowNum() {
-        return 10000;
+        return MAX_HEADER_ROW_NUM;
     }
 
 }

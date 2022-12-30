@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.xiaohan.cn</groupId>
-        <artifactId>export-util</artifactId>
+        <artifactId>export</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -20,6 +20,16 @@
         <dependency>
             <groupId>com.xiaohan.cn</groupId>
             <artifactId>export-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.xiaohan.cn</groupId>
+            <artifactId>export-poi</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.xiaohan.cn</groupId>
+                    <artifactId>export-common</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--mysql 连接驱动-->
         <dependency>

@@ -1,8 +1,6 @@
 package com.xiaohan.cn.service;
 
-import com.xiaohan.cn.vo.SysConfig;
-
-import java.util.List;
+import com.xiaohan.cn.result.vo.SysConfig;
 
 /**
  * 获取菜单配置
@@ -19,5 +17,4 @@ public interface SysConfigService {
      */
     SysConfig getConfig(String name);
 
-    void batchInsert(List<SysConfig> data);
 }

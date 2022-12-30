@@ -1,4 +1,4 @@
-package com.xiaohan.cn.vo;
+package com.xiaohan.cn.result.vo;
 
 import com.xiaohan.cn.constant.ExportContant;
 import io.swagger.annotations.ApiModelProperty;

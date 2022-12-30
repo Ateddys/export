@@ -15,8 +15,8 @@ import java.util.regex.Pattern;
  * 接口返回结果封装类
  *
  * @param <T> data属性的类型
- * @author zyr
- * @since 2018/12/29
+ * @author teddy
+ * @since 2022/12/29
  */
 @ApiModel("接口响应封装类")
 public class ApiResponseResult<T> {

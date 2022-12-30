@@ -1,32 +1,25 @@
-package com.xiaohan.cn.poi.exporter;
-
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+package com.xiaohan.cn.exporter;
 
 import com.xiaohan.cn.exception.BaseException;
+import com.xiaohan.cn.result.ApiResultCode;
+import com.xiaohan.cn.util.MessageUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.DataFormat;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.util.IOUtils;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.core.io.Resource;
+
+import java.io.InputStream;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * ExportEntity 导出实体
  *
  * @author teddy
- * @since 2022/12/20
+ * @since 2022/12/30
  */
 public class ExportEntity {
     /**
@@ -52,7 +45,7 @@ public class ExportEntity {
     /**
      * 导出数据
      */
-    private List<Object[]> datas = new ArrayList<>();
+    private List<Object[]> datas;
 
     /**
      * 列名称单元格样式
@@ -130,24 +123,18 @@ public class ExportEntity {
      * 初始化workbook
      */
     protected void initWorkbook() {
-        InputStream is = null;
-        try {
-            if (getTemplate() != null) {
-                String ext = StringUtils.substringAfterLast(getTemplate().getFilename(), ".");
-                is = getTemplate().getInputStream();
+
+        String ext = StringUtils.substringAfterLast(getExportName(), ".");
+        if (getTemplate() != null) {
+            try (InputStream is = getTemplate().getInputStream()) {
                 workbook = "xls".equalsIgnoreCase(ext) ? new HSSFWorkbook(is) : new XSSFWorkbook(is);
-            } else {
-
-                String ext = StringUtils.substringAfterLast(getExportName(), ".");
-                workbook = "xls".equalsIgnoreCase(ext) ? new HSSFWorkbook() : new XSSFWorkbook();
-
-                setHeaderCellStyle(createDefaultHeaderStyle(workbook));
-                setCellStyle(createDefaultCellStyle(workbook));
+            } catch (Exception e) {
+                throw MessageUtils.buildException(ApiResultCode.EXPORT_EXCEL_FAIL);
             }
-        } catch (Exception e) {
-            throw new BaseException("EXPORT_EXCEL_FAIL");
-        } finally {
-            IOUtils.closeQuietly(is);
+        } else {
+            workbook = "xls".equalsIgnoreCase(ext) ? new HSSFWorkbook() : new XSSFWorkbook();
+            setHeaderCellStyle(createDefaultHeaderStyle(workbook));
+            setCellStyle(createDefaultCellStyle(workbook));
         }
     }
 

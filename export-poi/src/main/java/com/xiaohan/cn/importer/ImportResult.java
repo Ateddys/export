@@ -1,4 +1,4 @@
-package com.xiaohan.cn.poi.importer;
+package com.xiaohan.cn.importer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
  * 导入Excel结果包装类
  *
  * @author teddy
- * @since 2022/12/20
+ * @since 2022/12/30
  */
 public class ImportResult implements Serializable{
 	

@@ -12,14 +12,13 @@ import com.xiaohan.cn.exception.BaseException;
 import com.xiaohan.cn.handle.AbstractCommonsImportExcelHandler;
 import com.xiaohan.cn.i18n.I18nUtils;
 import com.xiaohan.cn.result.MasterDataApiResultCode;
-import com.xiaohan.cn.vo.UserInfo;
-import com.xiaohan.cn.poi.exporter.ExportEntity;
+import com.xiaohan.cn.result.vo.UserInfo;
+import com.xiaohan.cn.exporter.ExportEntity;
+import com.xiaohan.cn.result.vo.ImportProgressVo;
+import com.xiaohan.cn.result.vo.PropertyInfo;
+import com.xiaohan.cn.result.vo.SysConfig;
 import com.xiaohan.cn.service.ExcelService;
 import com.xiaohan.cn.service.SysConfigService;
-import com.xiaohan.cn.vo.ImportProgressVo;
-import com.xiaohan.cn.vo.PropertyInfo;
-import com.xiaohan.cn.vo.SysConfig;
-import io.swagger.annotations.Api;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
@@ -34,7 +33,6 @@ import com.xiaohan.cn.util.ExcelFileResponse;
 import com.xiaohan.cn.util.ExcelUtils;
 import com.xiaohan.cn.util.MessageUtils;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.InvocationTargetException;
@@ -43,8 +41,8 @@ import java.util.*;
 /**
  * 导入导出实现
  *
- * @Author: teddy
- * @Date： 2021/7/29 14:19
+ * @author teddy
+ * @since 2022/12/30
  */
 @Service
 public class ExcelServiceImpl<T> implements ExcelService<T> {
@@ -160,7 +158,7 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
     }
 
     @Override
-    public void exportData(HttpServletResponse response, String name, Object datas) {
+    public void exportData(HttpServletResponse response, String name, T datas) {
         // 配置文件导出字段 属性映射
         SysConfig config = this.getConfig(name);
 

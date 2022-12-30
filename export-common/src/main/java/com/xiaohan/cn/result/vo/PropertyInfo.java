@@ -1,13 +1,9 @@
-package com.xiaohan.cn.vo;
+package com.xiaohan.cn.result.vo;
 
-import com.xiaohan.cn.constant.BaseSymbol;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  *

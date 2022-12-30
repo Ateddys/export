@@ -4,9 +4,7 @@ package com.xiaohan.cn.result;
  * <br>
  * date：2021/7/28 5:25 下午
  *
- * @author CHEN-QIAN
- * @version 2.1.1-SNAPSHOT
- * @since JDK 1.8
+ * @author teddy
  */
 public class MasterDataApiResultCode extends ApiResultCode {
 

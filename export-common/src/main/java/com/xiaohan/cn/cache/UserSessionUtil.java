@@ -1,8 +1,11 @@
 package com.xiaohan.cn.cache;
 
-import com.xiaohan.cn.vo.UserInfo;
+import com.xiaohan.cn.result.vo.UserInfo;
+
 
 /**
+ * session
+ *
  * @author teddy
  * @since 2022/12/29
  */

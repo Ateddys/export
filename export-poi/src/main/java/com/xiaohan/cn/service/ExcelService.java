@@ -1,6 +1,6 @@
 package com.xiaohan.cn.service;
 
-import com.xiaohan.cn.vo.ImportProgressVo;
+import com.xiaohan.cn.result.vo.ImportProgressVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 导入导出接口
  *
- * @Author: teddy
- * @Date： 2021/7/29 14:19
+ * @author teddy
+ * @since 2022/12/30
  */
 public interface ExcelService<T> {
 
@@ -34,7 +34,7 @@ public interface ExcelService<T> {
      * @param name 配置name
      * @param datas 数据源  List<***DTO>
      */
-    void exportData(HttpServletResponse response, String name, Object datas);
+    void exportData(HttpServletResponse response, String name, T datas);
 
     /**
      * 获取导入结果

@@ -16,8 +16,8 @@ import static com.xiaohan.cn.constant.ExportContant.MODEL_ERROR_CODE_PATTERN;
 /**
  * 消息工具类
  *
- * @author gcy
- * @since 2018/12/01
+ * @author teddy
+ * @since 2012/12/01
  */
 @Component
 public class MessageUtils {

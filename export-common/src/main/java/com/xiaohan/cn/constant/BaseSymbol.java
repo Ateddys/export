@@ -6,7 +6,9 @@ package com.xiaohan.cn.constant;
  * @since 2022/12/29
  */
 public class BaseSymbol {
-    public BaseSymbol() {}
+    public BaseSymbol() {
+        // Do nothing because of X and Y.
+    }
 
     public static final int ZERO = 0;
 

@@ -1,4 +1,4 @@
-package com.xiaohan.cn.vo;
+package com.xiaohan.cn.result.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

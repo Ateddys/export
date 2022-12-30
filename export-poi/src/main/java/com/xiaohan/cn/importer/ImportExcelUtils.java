@@ -1,6 +1,7 @@
-package com.xiaohan.cn.poi.importer;
+package com.xiaohan.cn.importer;
 
-
+import com.xiaohan.cn.result.ApiResultCode;
+import com.xiaohan.cn.util.MessageUtils;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -29,7 +30,7 @@ import static com.xiaohan.cn.constant.ExportContant.XLSX;
  * 导入Excel文件工具类
  *
  * @author teddy
- * @since 2022/12/20
+ * @since 2022/12/30
  */
 public class ImportExcelUtils {
 
@@ -60,30 +61,21 @@ public class ImportExcelUtils {
         int iIndex = filename.lastIndexOf('.');
         String ext = (iIndex < 0) ? "" : filename.substring(iIndex + 1).toLowerCase();
         if (!(XLSX.equals(ext) || XLS.equals(ext))) {
-            logger.error(filename + "not a Microsoft EXCEL file");
+            logger.error("{} not a Microsoft EXCEL file", filename);
+            throw MessageUtils.buildException(ApiResultCode.EXCEL_FAIL_MESSAGE, String.format("%s not a Microsoft EXCEL file", filename));
         }
-        InputStream input = null;
-        try {
-            input = file.getInputStream();
+        try (InputStream input = file.getInputStream()) {
             if (XLSX.equals(ext)) {
                 Workbook workBook = new XSSFWorkbook(input);
                 XSSFSheet sheet = (XSSFSheet) workBook.getSheetAt(0);
                 excleData = getCellVal(sheet, line);
-            } else if (XLS.equals(ext)) {
+            } else {
                 Workbook workBook = new HSSFWorkbook(input);
                 HSSFSheet sheet = (HSSFSheet) workBook.getSheetAt(0);
                 excleData = getCellVal(sheet, line);
             }
         } catch (IOException e) {
-            logger.error("export excel error :{}", e);
-        } finally {
-            try {
-                if (null != input) {
-                    input.close();
-                }
-            } catch (IOException e) {
-                logger.error("close IO fail");
-            }
+            throw MessageUtils.buildException(ApiResultCode.EXCEL_FAIL_MESSAGE, "创建excel失败");
         }
         return excleData;
     }

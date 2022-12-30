@@ -3,6 +3,7 @@ package com.xiaohan.cn.constant;
 import java.util.regex.Pattern;
 
 /**
+ * 导出常量
  * @author teddy
  * @since 2022/12/29
  */

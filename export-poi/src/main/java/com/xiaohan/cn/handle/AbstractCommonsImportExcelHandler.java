@@ -5,13 +5,13 @@ import com.xiaohan.cn.cache.RedisUtil;
 import com.xiaohan.cn.constant.BaseSymbol;
 import com.xiaohan.cn.constant.ExportContant;
 import com.xiaohan.cn.exception.BaseException;
-import com.xiaohan.cn.vo.UserInfo;
-import com.xiaohan.cn.poi.importer.AbstractImportExcelRowHandler;
-import com.xiaohan.cn.poi.importer.ImportResult;
+import com.xiaohan.cn.importer.ImportResult;
+import com.xiaohan.cn.result.vo.UserInfo;
+import com.xiaohan.cn.importer.AbstractImportExcelRowHandler;
 import com.xiaohan.cn.service.SysConfigService;
-import com.xiaohan.cn.vo.ImportProgressVo;
-import com.xiaohan.cn.vo.PropertyInfo;
-import com.xiaohan.cn.vo.SysConfig;
+import com.xiaohan.cn.result.vo.ImportProgressVo;
+import com.xiaohan.cn.result.vo.PropertyInfo;
+import com.xiaohan.cn.result.vo.SysConfig;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.locale.converters.DateLocaleConverter;
 import org.apache.commons.collections.CollectionUtils;
@@ -19,13 +19,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.xiaohan.cn.util.DateUtils;
 import com.xiaohan.cn.util.ExcelUtils;
 import com.xiaohan.cn.util.ListUniqUtils;
-import com.xiaohan.cn.util.ResultUtils;
+import com.xiaohan.cn.util.ResultUtil;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -41,10 +42,10 @@ import static com.xiaohan.cn.constant.ExportContant.MAX_PARAMS;
 /**
  * tpm导入导出抽象类
  *
- * @Author: teddy
- * @Date： 2021/7/26 15:51
+ * @author teddy
+ * @since 2022/12/30
  */
-@Component
+@Configuration
 public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImportExcelRowHandler {
 
     Class<T> clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -144,7 +145,7 @@ public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImpor
             ImportResult importResult = super.handleSheet(sheet);
             if (importResult.getFailRowCount() > 0) {
                 // 校验失败
-                String result = ResultUtils.getImportResult(importResult);
+                String result = ResultUtil.getImportResult(importResult);
                 this.updateImportProgressVo(importProgressVo.get(), ExportContant.ImportStatusEnum.FAIL.getKey()
                         , ExportContant.ImportProgressEnum.END_VALIDATE, result);
             }else if(importResult.getSuccessRowCount() == 0){

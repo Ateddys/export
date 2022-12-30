@@ -5,8 +5,8 @@ import java.text.NumberFormat;
 /**
  * 结果码, 表示接口处理结果状态
  *
- * @author zyr
- * @since 2018/12/29
+ * @author teddy
+ * @since 2022/12/29
  */
 public class ApiResultCode {
 
@@ -38,6 +38,7 @@ public class ApiResultCode {
     public static final ApiResultCode USER_HAS_LOGGED = buildApiResultCode(getBaseResultCode(), 32, "账号从其他设备登录,需要重新登录");
     public static final ApiResultCode QUERY_DATA_FAIL = buildApiResultCode(getBaseResultCode(), 33, "查询数据失败:{0}");
     public static final ApiResultCode EDIT_PROTECTED_DATA_FAIL = buildApiResultCode(getBaseResultCode(), 34, "无法编辑系统数据");
+    public static final ApiResultCode EXCEL_FAIL_MESSAGE = buildApiResultCode(getBaseResultCode(), 35, "导入导出失败，原因：{0}");
 
     /**
      * 返回码

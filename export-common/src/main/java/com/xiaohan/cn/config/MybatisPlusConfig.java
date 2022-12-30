@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * mybatis 分页配置
  * @author by teddy
  * @date 2022/12/29 9:46
  */

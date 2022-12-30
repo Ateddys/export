@@ -16,7 +16,6 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,16 +93,14 @@ public class ExcelUtils {
         int iIndex = filename.lastIndexOf('.');
         String ext = (iIndex < 0) ? "" : filename.substring(iIndex + 1).toLowerCase();
         if (!(XLSX.equals(ext) || XLS.equals(ext))) {
-            logger.error(filename + "not a Microsoft EXCEL file");
+            logger.error("{} not a Microsoft EXCEL file", filename);
             return null;
         }
-        InputStream input = null;
         Workbook workBook = null;
-        try {
-            input = file.getInputStream();
+        try (InputStream input = file.getInputStream()) {
             if (XLSX.equals(ext)) {
                 workBook = new XSSFWorkbook(input);
-            } else if (XLS.equals(ext)) {
+            } else {
                 workBook = new HSSFWorkbook(input);
             }
             if (sheetNum != null) {
@@ -115,7 +112,6 @@ public class ExcelUtils {
         } catch (IOException e) {
             logger.error(LOGGER_ERROR, e);
         } finally {
-            IOUtils.closeQuietly(input);
             ExcelUtils.closeQuietly(workBook);
         }
         return null;
@@ -252,7 +248,7 @@ public class ExcelUtils {
                     return cell.getBooleanCellValue() ? 1 : 0;
 
                 case NUMERIC:
-                    return new Double(cell.getNumericCellValue()).intValue();
+                    return (int) cell.getNumericCellValue();
                 case STRING:
                     String intString = cell.getStringCellValue();
                     if (StringUtils.isNotBlank(intString)) {
@@ -261,7 +257,7 @@ public class ExcelUtils {
                     break;
                 case FORMULA:
                     try {
-                        return new Double(cell.getNumericCellValue()).intValue();
+                        return (int) cell.getNumericCellValue();
                     } catch (Exception e) {
                         try {
                             intString = cell.getStringCellValue();
@@ -348,7 +344,7 @@ public class ExcelUtils {
                     break;
             }
         }
-        return null;
+        return Boolean.FALSE;
     }
 
     /**

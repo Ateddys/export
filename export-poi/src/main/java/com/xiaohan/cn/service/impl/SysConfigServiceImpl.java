@@ -1,10 +1,8 @@
 package com.xiaohan.cn.service.impl;
 
+import com.xiaohan.cn.result.vo.SysConfig;
 import com.xiaohan.cn.service.SysConfigService;
-import com.xiaohan.cn.vo.SysConfig;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author teddy
@@ -18,8 +16,4 @@ public class SysConfigServiceImpl implements SysConfigService {
         return new SysConfig();
     }
 
-    @Override
-    public void batchInsert(List<SysConfig> data) {
-
-    }
 }
