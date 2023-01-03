@@ -9,6 +9,6 @@ import com.xiaohan.cn.model.TCat;
  * @author teddy
  * @since 2022/12/30
  */
-public interface TCatMapper extends BaseMapper<TCat> {
+public interface TCatMapper extends TBaseMapper<TCat> {
 
 }

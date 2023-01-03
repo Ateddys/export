@@ -25,6 +25,10 @@
             <groupId>com.xiaohan.cn</groupId>
             <artifactId>export-poi</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.xiaohan.cn</groupId>
+            <artifactId>export-db</artifactId>
+        </dependency>
         <!--mysql 连接驱动-->
         <dependency>
             <groupId>mysql</groupId>

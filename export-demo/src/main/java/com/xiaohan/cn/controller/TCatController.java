@@ -2,6 +2,7 @@ package com.xiaohan.cn.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xiaohan.cn.constant.ExportContant;
+import com.xiaohan.cn.converts.TCatConvertMapper;
 import com.xiaohan.cn.model.TCat;
 import com.xiaohan.cn.model.dto.TCatAddDto;
 import com.xiaohan.cn.model.dto.TCatDto;
@@ -10,6 +11,7 @@ import com.xiaohan.cn.service.ExcelService;
 import com.xiaohan.cn.service.TCatService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.legendscloud.common.base.ComReq;
 import top.legendscloud.common.base.ComResp;
@@ -32,13 +34,10 @@ import java.util.List;
 @Api(value = "TCatController | 发布广场")
 public class TCatController {
 
-    private final TCatService tCatService;
-    private final ExcelService<TCat> excelService;
-
-    public TCatController(TCatService tCatService, ExcelService<TCat> excelService) {
-        this.tCatService = tCatService;
-        this.excelService = excelService;
-    }
+    @Autowired
+    private TCatService tCatService;
+    @Autowired
+    private ExcelService<TCat> excelService;
 
     @ApiOperation("导出")
     @PostMapping("export")
