@@ -1,9 +1,9 @@
 package com.xiaohan.cn.service;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import top.legendscloud.common.base.ReqPage;
@@ -11,6 +11,7 @@ import top.legendscloud.common.enums.CommonEnumCode;
 import top.legendscloud.common.exception.BizException;
 import top.legendscloud.db.page.PageUtils;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -21,10 +22,26 @@ import java.util.List;
  */
 public abstract class TBaseServiceImpl<T> extends ServiceImpl<BaseMapper<T>, T> implements TBaseService<T> {
 
+    Class<T> clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+
     @Autowired
     private PageUtils pageUtils;
 
-    abstract protected QueryWrapper<T> buildQueryWrapper(T t);
+    /**
+     * 转换当前泛型类
+     * @param data 参数数据
+     * @return T
+     */
+    private T getBean(T data) {
+        return JSON.parseObject(JSON.toJSONString(data), clazz);
+    }
+
+    /**
+     * buildQueryWrapper
+     * @param t 实体
+     * @return queryWrapper
+     */
+    protected abstract QueryWrapper<T> buildQueryWrapper(T t);
 
     @Override
     public List<T> exportList(ReqPage<T> reqPage) {
@@ -33,9 +50,8 @@ public abstract class TBaseServiceImpl<T> extends ServiceImpl<BaseMapper<T>, T> 
 
     @Override
     public IPage<T> page(ReqPage<T> req) {
-        Page page = pageUtils.page(req.getPage(), req.getSize(), req.isSort(), req.getSortName());
-        T data = req.getData();
-        return page(page, buildQueryWrapper(req.getData()));
+        return page(pageUtils.page(req.getPage(), req.getSize(), req.isSort(), req.getSortName()),
+                buildQueryWrapper(getBean(req.getData())));
     }
 
     @Override

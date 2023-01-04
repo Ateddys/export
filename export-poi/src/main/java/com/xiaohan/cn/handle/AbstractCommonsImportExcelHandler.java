@@ -7,15 +7,15 @@ import com.xiaohan.cn.constant.ExportContant;
 import com.xiaohan.cn.exception.BaseException;
 import com.xiaohan.cn.importer.AbstractImportExcelRowHandler;
 import com.xiaohan.cn.importer.ImportResult;
-import com.xiaohan.cn.vo.ImportProgressVo;
-import com.xiaohan.cn.vo.PropertyInfo;
 import com.xiaohan.cn.model.TSysConfig;
-import com.xiaohan.cn.vo.UserInfo;
 import com.xiaohan.cn.service.TSysConfigService;
 import com.xiaohan.cn.util.DateUtils;
 import com.xiaohan.cn.util.ExcelUtils;
 import com.xiaohan.cn.util.ListUniqUtils;
 import com.xiaohan.cn.util.ResultUtil;
+import com.xiaohan.cn.vo.ImportProgressVo;
+import com.xiaohan.cn.vo.PropertyInfo;
+import com.xiaohan.cn.vo.UserInfo;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.locale.converters.DateLocaleConverter;
 import org.apache.commons.collections.CollectionUtils;
@@ -24,6 +24,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.ConstraintViolation;
@@ -43,6 +44,7 @@ import static com.xiaohan.cn.constant.ExportContant.MAX_PARAMS;
  * @author teddy
  * @since 2022/12/30
  */
+@Component
 public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImportExcelRowHandler {
 
     Class<T> clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];

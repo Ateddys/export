@@ -24,13 +24,16 @@ public class TCatServiceImpl extends TBaseServiceImpl<TCat> implements TCatServi
     @Override
     protected QueryWrapper<TCat> buildQueryWrapper(TCat param) {
         QueryWrapper<TCat> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.lambda()
-//                .eq(StringUtils.isNotBlank(param.getCatName()), TCat::getCatName, param.getCatName())
-//                .eq(StringUtils.isNotBlank(param.getCatNo()), TCat::getCatNo, param.getCatNo())
-//                .eq(CatPubTypeEnum.P_ALL.isAll(param.getPubType()), TCat::getPubType, param.getPubType())
-//                .eq(CatSpeciesEnum.S_ALL.isAll(param.getSpecies()), TCat::getSpecies, param.getSpecies())
-//                .eq(GenderEnum.G_ALL.isAll(param.getCatSex()), TCat::getSpecies, param.getSpecies())
-//        ;
+        if (param == null) {
+            return queryWrapper;
+        }
+        queryWrapper.lambda()
+                .likeRight(StringUtils.isNotBlank(param.getCatName()), TCat::getCatName, param.getCatName())
+                .likeRight(StringUtils.isNotBlank(param.getCatNo()), TCat::getCatNo, param.getCatNo())
+                .eq(CatPubTypeEnum.P_ALL.isAll(param.getPubType()), TCat::getPubType, param.getPubType())
+                .eq(CatSpeciesEnum.S_ALL.isAll(param.getSpecies()), TCat::getSpecies, param.getSpecies())
+                .eq(GenderEnum.G_ALL.isAll(param.getCatSex()), TCat::getSpecies, param.getSpecies())
+        ;
         return queryWrapper;
     }
 

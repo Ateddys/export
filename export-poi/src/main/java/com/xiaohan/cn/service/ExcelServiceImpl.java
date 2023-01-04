@@ -76,17 +76,11 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
     }
 
     @Override
-    public ImportProgressVo result(String name) {
-        Object obj = redisUtils.hget(ExportContant.getImportRedisKey(name), UserSessionUtil.getLoggedInUser().getId());
-        return obj == null ? null : (ImportProgressVo) obj;
-    }
-
-    @Override
-    public void importExcel(String name, MultipartFile file) {
+    public void importExcelData(String name, MultipartFile file) {
         UserInfo userInfo = UserSessionUtil.getLoggedInUser();
         logger.info("即将处理的数据类型：{}, 用户：{}", name, userInfo.getFullName());
         // 查看当前用户有没有正在进行该类型的导入
-        ImportProgressVo result = this.result(name);
+        ImportProgressVo result = this.excelResult(name);
         if (result != null && ExportContant.ImportStatusEnum.IN_PROGRESS.getKey().equals(result.getStatus())) {
             throw MessageUtils.buildException(MasterDataApiResultCode.IMPORT_IN_PROGRESS, userInfo.getFullName(), name);
         }
@@ -117,7 +111,7 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
     }
 
     @Override
-    public void exportData(HttpServletResponse response, String name, List<T> datas) {
+    public void exportExcelData(HttpServletResponse response, String name, List<T> datas) {
         // 配置文件导出字段 属性映射
         TSysConfig config = this.getConfig(name);
 
@@ -174,5 +168,9 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
         list.clear();
     }
 
-
+    @Override
+    public ImportProgressVo excelResult(String name) {
+        Object obj = redisUtils.hget(ExportContant.getImportRedisKey(name), UserSessionUtil.getLoggedInUser().getId());
+        return obj == null ? null : (ImportProgressVo) obj;
+    }
 }

@@ -19,7 +19,7 @@ public interface ExcelService<T> {
      * @param name 配置name
      * @param file 文件
      */
-    void importExcel(String name, MultipartFile file);
+    void importExcelData(String name, MultipartFile file);
 
     /**
      * 主数据 导出
@@ -28,12 +28,12 @@ public interface ExcelService<T> {
      * @param name 配置name
      * @param datas 数据源  List<***DTO>
      */
-    void exportData(HttpServletResponse response, String name, List<T> datas);
+    void exportExcelData(HttpServletResponse response, String name, List<T> datas);
 
     /**
      * 获取导入结果
      *
      * @param name 配置name
      */
-    ImportProgressVo result(String name);
+    ImportProgressVo excelResult(String name);
 }

@@ -3,11 +3,13 @@ package com.xiaohan.cn.model;
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -16,9 +18,10 @@ import java.util.Date;
  * @author by teddy
  * @date 2022/12/5 15:28
  */
+@ApiModel(value = "BaseEntity")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class BaseEntity<L, T extends Model<T>> extends Model<T> {
+public class BaseEntity<L, T extends Model<T>> extends Model<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

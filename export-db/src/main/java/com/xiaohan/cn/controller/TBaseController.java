@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xiaohan.cn.constant.ExportContant;
 import com.xiaohan.cn.service.ExcelService;
 import com.xiaohan.cn.service.TBaseService;
+import com.xiaohan.cn.vo.ImportProgressVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import top.legendscloud.common.base.ComReq;
 import top.legendscloud.common.base.ComResp;
 import top.legendscloud.common.base.ReqPage;
@@ -26,20 +28,10 @@ import java.util.List;
 public class TBaseController<T> {
 
     @Autowired
-    private TBaseService<T> tBaseService;
+    private TBaseService tBaseService;
 
     @Autowired
     private ExcelService<T> excelService;
-
-    @ApiOperation("导出")
-    @GetMapping("/export")
-    public void export(@RequestBody ComReq<ReqPage<T>> comReq, HttpServletResponse response) {
-        excelService.exportData(
-                response,
-                ExportContant.T_CAT,
-                tBaseService.exportList(comReq.getData())
-        );
-    }
 
     @ApiOperation(value = "分页列表", notes = "分页列表")
     @PostMapping("/page")
@@ -94,6 +86,30 @@ public class TBaseController<T> {
     public ComResp<Boolean> deleteByIds(@Valid @RequestBody ComReq<BaseDelsDTO> comReq) {
         return new ComResp.Builder<>().fromReq(comReq)
                 .data(tBaseService.deleteByIds(comReq.getData().getIds()))
+                .success().build();
+    }
+
+    @ApiOperation("导入")
+    @PostMapping("/importExcelData")
+    public void importExcelData(@RequestBody ComReq<MultipartFile> comReq) {
+        excelService.importExcelData(ExportContant.T_CAT, comReq.getData());
+    }
+
+    @ApiOperation("导出")
+    @PostMapping("/exportExcelData")
+    public void exportExcelData(@RequestBody ComReq<ReqPage<Void>> comReq, HttpServletResponse response) {
+        excelService.exportExcelData(
+                response,
+                ExportContant.T_CAT,
+                tBaseService.exportList(comReq.getData())
+        );
+    }
+
+    @ApiOperation("导入异步结果")
+    @PostMapping("/excelResult")
+    public ComResp<ImportProgressVo> excelResult(@RequestBody ComReq<String> comReq) {
+        return new ComResp.Builder<ImportProgressVo>().fromReq(comReq)
+                .data(excelService.excelResult(ExportContant.T_CAT))
                 .success().build();
     }
 }
