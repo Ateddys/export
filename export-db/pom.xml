@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.xiaohan.cn</groupId>
-            <artifactId>export-common</artifactId>
+            <artifactId>export-poi</artifactId>
         </dependency>
     </dependencies>
 

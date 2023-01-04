@@ -7,7 +7,6 @@ import com.xiaohan.cn.enums.CatSpeciesEnum;
 import com.xiaohan.cn.enums.GenderEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
