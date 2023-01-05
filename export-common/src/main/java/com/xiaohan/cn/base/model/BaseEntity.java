@@ -15,8 +15,8 @@ import java.util.Date;
 /**
  * 基础类
  *
- * @author by teddy
- * @date 2022/12/5 15:28
+ * @author teddy
+ * @date 2022/12/25
  */
 @ApiModel(value = "BaseEntity")
 @EqualsAndHashCode(callSuper = true)

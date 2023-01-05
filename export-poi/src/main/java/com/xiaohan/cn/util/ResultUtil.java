@@ -15,7 +15,7 @@ import java.util.List;
  * 结果处理工具类
  *
  * @author teddy
- * @since 2022/12/29
+ * @since 2022/12/30
  */
 public class ResultUtil {
 

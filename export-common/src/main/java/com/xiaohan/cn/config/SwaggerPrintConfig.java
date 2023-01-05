@@ -21,8 +21,8 @@ import java.net.UnknownHostException;
 /**
  * swagger配置
  *
- * @author by teddy
- * @date 2022/12/28 17:21
+ * @author teddy
+ * @date 2022/12/27
  */
 @Slf4j
 @Configuration

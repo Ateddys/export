@@ -11,9 +11,10 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 
 /**
- * 导入进程
- * @author cansheng
- * @date 2021-10-20
+ * 导入进度状态
+ *
+ * @author teddy
+ * @since 2022/12/27
  */
 @Data
 public class ImportProgressVo implements Serializable {

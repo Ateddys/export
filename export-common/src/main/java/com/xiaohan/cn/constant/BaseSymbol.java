@@ -2,8 +2,9 @@ package com.xiaohan.cn.constant;
 
 /**
  * 系统常量
+ *
  * @author teddy
- * @since 2022/12/29
+ * @since 2022/12/25
  */
 public class BaseSymbol {
 

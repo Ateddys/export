@@ -1,12 +1,12 @@
 package com.xiaohan.cn.result;
 
 /**
- * <br>
- * date：2021/7/28 5:25 下午
+ * excel结果码, 表示接口处理结果状态
  *
  * @author teddy
+ * @since 2022/12/26
  */
-public class MasterDataApiResultCode extends ApiResultCode {
+public class ExcelDataApiResultCode extends ApiResultCode {
 
     public static final ApiResultCode CODE_IS_ALREADY_IN_USE = buildApiResultCode(getBaseResultCode(), 1, "{0}已被使用");
 

@@ -3,8 +3,10 @@ package com.xiaohan.cn.vo;
 import lombok.Data;
 
 /**
+ * 用户缓存信息
+ *
  * @author teddy
- * @since 2022/12/29
+ * @since 2022/12/27
  */
 @Data
 public class UserInfo {

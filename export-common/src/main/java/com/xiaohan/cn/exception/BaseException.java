@@ -5,7 +5,7 @@ package com.xiaohan.cn.exception;
  * 自定义基础异常类
  *
  * @author teddy
- * @since 2022/12/20
+ * @since 2022/12/25
  */
 public class BaseException extends RuntimeException {
     private static final long serialVersionUID = 1381325479896057076L;

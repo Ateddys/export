@@ -13,8 +13,8 @@ import java.util.Date;
 /**
  * mybatis 分页配置、自动添加基础字段
  *
- * @author by teddy
- * @date 2022/12/29 9:46
+ * @author teddy
+ * @date 2022/12/27
  */
 @Configuration
 public class MybatisPlusConfig {

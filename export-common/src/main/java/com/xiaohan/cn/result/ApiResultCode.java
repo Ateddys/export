@@ -6,7 +6,7 @@ import java.text.NumberFormat;
  * 结果码, 表示接口处理结果状态
  *
  * @author teddy
- * @since 2022/12/29
+ * @since 2022/12/26
  */
 public class ApiResultCode {
 

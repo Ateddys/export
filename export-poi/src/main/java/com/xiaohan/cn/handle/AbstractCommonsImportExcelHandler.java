@@ -35,7 +35,7 @@ import java.util.stream.Stream;
 import static com.xiaohan.cn.constant.ExportContant.MAX_PARAMS;
 
 /**
- * tpm导入导出抽象类
+ * 导入导出抽象类
  *
  * @author teddy
  * @since 2022/12/30

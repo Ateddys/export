@@ -10,7 +10,7 @@ import java.io.Serializable;
  * 属性映射
  *
  * @author teddy
- * @since 2022/12/29
+ * @since 2022/12/27
  */
 @SuppressWarnings("serial")
 @Data

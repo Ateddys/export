@@ -11,7 +11,7 @@ import java.util.Locale;
  * 国际化信息工具，根据key获取国际化文本
  *
  * @author teddy
- * @since 2022/12/20
+ * @since 2022/12/26
  */
 @Component
 public class I18nUtils {

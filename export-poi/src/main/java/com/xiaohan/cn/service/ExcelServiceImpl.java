@@ -9,7 +9,7 @@ import com.xiaohan.cn.constant.ExportContant;
 import com.xiaohan.cn.exception.BaseException;
 import com.xiaohan.cn.exporter.ExportEntity;
 import com.xiaohan.cn.handle.AbstractCommonsImportExcelHandler;
-import com.xiaohan.cn.result.MasterDataApiResultCode;
+import com.xiaohan.cn.result.ExcelDataApiResultCode;
 import com.xiaohan.cn.util.*;
 import com.xiaohan.cn.vo.ImportProgressVo;
 import com.xiaohan.cn.vo.PropertyInfo;
@@ -77,7 +77,7 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
         // 查看当前用户有没有正在进行该类型的导入
         ImportProgressVo result = this.excelResult(name);
         if (result != null && ExportContant.ImportStatusEnum.IN_PROGRESS.getKey().equals(result.getStatus())) {
-            throw MessageUtils.buildException(MasterDataApiResultCode.IMPORT_IN_PROGRESS, userInfo.getFullName(), name);
+            throw MessageUtils.buildException(ExcelDataApiResultCode.IMPORT_IN_PROGRESS, userInfo.getFullName(), name);
         }
         if (handlerMap.containsKey(name)) {
             Sheet sheet = null;
@@ -88,7 +88,7 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
             }
             // 超过最大条数
             if (handlerMap.get(name).getMaxHandleRowNum() < sheet.getLastRowNum()) {
-                throw MessageUtils.buildException(MasterDataApiResultCode.IMPORT_MAX, handlerMap.get(name).getMaxHandleRowNum());
+                throw MessageUtils.buildException(ExcelDataApiResultCode.IMPORT_MAX, handlerMap.get(name).getMaxHandleRowNum());
             }
             try {
                 // 异步处理数据

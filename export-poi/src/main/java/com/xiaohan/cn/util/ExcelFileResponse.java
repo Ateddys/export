@@ -14,8 +14,8 @@ import java.util.regex.Pattern;
 /**
  * excel 兼容mac浏览器
  *
- * @Author: teddy
- * @Date： 2021/9/29 13:41
+ * @author teddy
+ * @since 2022/12/30
  */
 @Slf4j
 public class ExcelFileResponse {

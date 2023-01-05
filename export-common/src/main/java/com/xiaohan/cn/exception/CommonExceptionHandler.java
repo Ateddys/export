@@ -10,10 +10,10 @@ import top.legendscloud.common.enums.CommonEnumCode;
 import top.legendscloud.common.exception.BizException;
 
 /**
- * @program: teddylife
- * @description: 全局异常
- * @author: Teddy
- * @create: 2020-10-26 10:14
+ * 全局异常拦截转发处理
+ *
+ * @author teddy
+ * @since 2022/12/25
  **/
 @Slf4j
 @RestControllerAdvice

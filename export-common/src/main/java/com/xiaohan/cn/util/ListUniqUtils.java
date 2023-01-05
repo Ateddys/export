@@ -11,7 +11,7 @@ import com.alibaba.ttl.TransmittableThreadLocal;
  * 校验时判断集合中的数据是否存在重复
  *
  * @author teddy
- * @since 2012/12/01
+ * @since 2022/12/26
  *
  */
 public class ListUniqUtils {
