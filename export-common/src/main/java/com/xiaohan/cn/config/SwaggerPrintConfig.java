@@ -1,4 +1,4 @@
-package com.xiaohan.cn;
+package com.xiaohan.cn.config;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.stereotype.Component;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -20,8 +19,10 @@ import java.net.Inet4Address;
 import java.net.UnknownHostException;
 
 /**
- * @author by teddy
- * @date 2022/12/28 17:21
+ * swagger配置
+ *
+ * @author teddy
+ * @date 2022/12/27
  */
 @Slf4j
 @Configuration

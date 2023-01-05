@@ -1,16 +1,20 @@
 package com.xiaohan.cn;
 
-import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletComponentScan;
+import top.legendscloud.db.generator.LegendsCodeGenerator;
 
+
+@MapperScan("com.xiaohan.cn.**.mapper")
 @SpringBootApplication(scanBasePackages = "com.xiaohan.cn")
-@ServletComponentScan
-@Slf4j
 public class ExportUtilDemoServiceApplication implements ApplicationRunner {
+
+    @Autowired
+    LegendsCodeGenerator legendsCodeGenerator;
 
     public static void main(String[] args) {
         SpringApplication.run(ExportUtilDemoServiceApplication.class, args);
@@ -18,6 +22,7 @@ public class ExportUtilDemoServiceApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        //    legendsCodeGenerator.run();
+//        legendsCodeGenerator.run();
     }
+
 }

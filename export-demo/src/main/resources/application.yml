@@ -1,6 +1,36 @@
 server:
+  ip: localhost
   port: 9000
 
+spring:
+  application:
+    name: export_demo
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${server.ip}:3306/life?characterEncoding=utf8&useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: 123456
+  redis:
+    host: ${server.ip}
+    port: 6379
+    password: 123456
+    database: 6
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  # 枚举
+  type-enums-package: com.wx.entity.enums
+  configuration:
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    # 控制台打印sql语句
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    # 逻辑删除配置
+    db-config:
+      logic-not-delete-value: 1
+      logic-delete-value: 0
 
 logging:
   pattern:

@@ -11,12 +11,13 @@
     </parent>
 
     <groupId>com.xiaohan.cn</groupId>
-    <artifactId>export-util</artifactId>
+    <artifactId>export</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>common-api</module>
+        <module>export-common</module>
+        <module>export-poi</module>
         <module>export-demo</module>
     </modules>
 
@@ -33,68 +34,107 @@
         <dependencies>
             <dependency>
                 <groupId>com.xiaohan.cn</groupId>
-                <artifactId>common-api</artifactId>
+                <artifactId>export-common</artifactId>
                 <version>${project.exportutil.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.xiaohan.cn</groupId>
+                <artifactId>export-poi</artifactId>
+                <version>${project.exportutil.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xiaohan.cn</groupId>
+                <artifactId>export-db</artifactId>
+                <version>${project.exportutil.version}</version>
+            </dependency>
             <dependency>
                 <groupId>top.legendscloud</groupId>
                 <artifactId>spring-cloud-legends-common</artifactId>
                 <version>${top.legendscloud}</version>
             </dependency>
-
             <dependency>
                 <groupId>top.legendscloud</groupId>
                 <artifactId>spring-cloud-legends-db-starter</artifactId>
                 <version>${top.legendscloud}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.flywaydb</groupId>
-                        <artifactId>flyway-core</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
-
             <!--logBack-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-logging</artifactId>
                 <version>2.0.3.RELEASE</version>
             </dependency>
-
             <!-- fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>1.2.47</version>
             </dependency>
-
             <!--lombok-->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.16.20</version>
             </dependency>
-
             <!-- commons-long3-->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.8</version>
             </dependency>
-
             <!-- hutool-all-->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>5.7.20</version>
             </dependency>
-
             <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>2.0.4</version>
+            </dependency>
+            <!--mysql 连接驱动-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.46</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.4.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>2.3.12.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>2.12.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.9.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>5.0.0</version>
+            </dependency>
+            <!--mapStruct依赖-->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-jdk8</artifactId>
+                <version>1.2.0.CR1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>1.2.0.CR1</version>
+                <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
