@@ -2,6 +2,7 @@ package com.xiaohan.cn.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.xiaohan.cn.base.model.BaseEntity;
 import com.xiaohan.cn.enums.CatPubTypeEnum;
 import com.xiaohan.cn.enums.CatSpeciesEnum;
 import com.xiaohan.cn.enums.GenderEnum;

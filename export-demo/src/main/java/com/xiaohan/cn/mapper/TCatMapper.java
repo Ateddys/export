@@ -1,6 +1,6 @@
 package com.xiaohan.cn.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.xiaohan.cn.base.mapper.TBaseMapper;
 import com.xiaohan.cn.model.TCat;
 
 /**

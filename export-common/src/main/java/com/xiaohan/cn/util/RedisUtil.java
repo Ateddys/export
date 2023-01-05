@@ -1,4 +1,4 @@
-package com.xiaohan.cn.cache;
+package com.xiaohan.cn.util;
 
 import com.xiaohan.cn.exception.BaseException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -12,13 +12,16 @@ import java.util.List;
  */
 @Component
 public class ConfigImportExcelHandler extends AbstractCommonsImportExcelHandler<UserInfo> {
+
     @Override
     String getConfigName() {
         return null;
     }
 
     @Override
-    void batchInsert(List<UserInfo> data, ImportResult result) {
-
+    public void batchInsert(List<UserInfo> data, ImportResult result) {
+        logger.info("添加");
     }
+
+
 }

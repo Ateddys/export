@@ -1,4 +1,4 @@
-package com.xiaohan.cn.service;
+package com.xiaohan.cn.base.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;

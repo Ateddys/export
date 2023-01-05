@@ -3,19 +3,14 @@ package com.xiaohan.cn.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
-import com.xiaohan.cn.cache.RedisUtil;
-import com.xiaohan.cn.cache.UserSessionUtil;
+import com.xiaohan.cn.base.model.TSysConfig;
 import com.xiaohan.cn.constant.BaseSymbol;
 import com.xiaohan.cn.constant.ExportContant;
 import com.xiaohan.cn.exception.BaseException;
 import com.xiaohan.cn.exporter.ExportEntity;
 import com.xiaohan.cn.handle.AbstractCommonsImportExcelHandler;
-import com.xiaohan.cn.model.TSysConfig;
 import com.xiaohan.cn.result.MasterDataApiResultCode;
-import com.xiaohan.cn.util.DateUtils;
-import com.xiaohan.cn.util.ExcelFileResponse;
-import com.xiaohan.cn.util.ExcelUtils;
-import com.xiaohan.cn.util.MessageUtils;
+import com.xiaohan.cn.util.*;
 import com.xiaohan.cn.vo.ImportProgressVo;
 import com.xiaohan.cn.vo.PropertyInfo;
 import com.xiaohan.cn.vo.UserInfo;
@@ -50,7 +45,7 @@ public class ExcelServiceImpl<T> implements ExcelService<T> {
     private RedisUtil redisUtils;
 
     @Autowired
-    private TSysConfigService TSysConfigService;
+    private com.xiaohan.cn.base.service.TSysConfigService TSysConfigService;
 
     @Autowired
     private final Map<String, AbstractCommonsImportExcelHandler<T>> handlerMap = Maps.newConcurrentMap();

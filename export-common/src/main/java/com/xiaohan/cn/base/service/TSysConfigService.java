@@ -1,7 +1,7 @@
-package com.xiaohan.cn.service;
+package com.xiaohan.cn.base.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.xiaohan.cn.model.TSysConfig;
+import com.xiaohan.cn.base.model.TSysConfig;
 
 /**
  * 获取菜单配置

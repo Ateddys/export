@@ -1,18 +1,14 @@
 package com.xiaohan.cn.handle;
 
 import com.alibaba.fastjson.JSON;
-import com.xiaohan.cn.cache.RedisUtil;
 import com.xiaohan.cn.constant.BaseSymbol;
 import com.xiaohan.cn.constant.ExportContant;
 import com.xiaohan.cn.exception.BaseException;
 import com.xiaohan.cn.importer.AbstractImportExcelRowHandler;
 import com.xiaohan.cn.importer.ImportResult;
-import com.xiaohan.cn.model.TSysConfig;
-import com.xiaohan.cn.service.TSysConfigService;
-import com.xiaohan.cn.util.DateUtils;
-import com.xiaohan.cn.util.ExcelUtils;
-import com.xiaohan.cn.util.ListUniqUtils;
-import com.xiaohan.cn.util.ResultUtil;
+import com.xiaohan.cn.base.model.TSysConfig;
+import com.xiaohan.cn.base.service.TSysConfigService;
+import com.xiaohan.cn.util.*;
 import com.xiaohan.cn.vo.ImportProgressVo;
 import com.xiaohan.cn.vo.PropertyInfo;
 import com.xiaohan.cn.vo.UserInfo;
@@ -93,10 +89,10 @@ public abstract class AbstractCommonsImportExcelHandler<T> extends AbstractImpor
      * 校验器
      */
     @Autowired
-    private Validator validator;
+    protected Validator validator;
 
     @Autowired
-    private RedisUtil redisUtils;
+    protected RedisUtil redisUtils;
 
     /**
      * 获取动态配置属性name方法

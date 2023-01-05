@@ -5,7 +5,7 @@ import com.xiaohan.cn.enums.CatPubTypeEnum;
 import com.xiaohan.cn.enums.CatSpeciesEnum;
 import com.xiaohan.cn.enums.GenderEnum;
 import com.xiaohan.cn.model.TCat;
-import com.xiaohan.cn.service.TBaseServiceImpl;
+import com.xiaohan.cn.base.service.TBaseServiceImpl;
 import com.xiaohan.cn.service.TCatService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

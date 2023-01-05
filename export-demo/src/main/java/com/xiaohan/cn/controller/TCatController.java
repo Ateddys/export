@@ -14,6 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/cat")
 @Api(value = "TCatController | 发布广场")
-public class TCatController extends TBaseController<TCat> {
+public class TCatController extends TBaseExcelController<TCat> {
 
 }

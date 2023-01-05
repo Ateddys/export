@@ -1,4 +1,4 @@
-package com.xiaohan.cn.service;
+package com.xiaohan.cn.base.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.Feature;
@@ -6,12 +6,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaohan.cn.constant.BaseSymbol;
 import com.xiaohan.cn.i18n.I18nUtils;
-import com.xiaohan.cn.mapper.TSysConfigMapper;
-import com.xiaohan.cn.model.TSysConfig;
+import com.xiaohan.cn.base.mapper.TSysConfigMapper;
+import com.xiaohan.cn.base.model.TSysConfig;
 import com.xiaohan.cn.result.ApiResultCode;
 import com.xiaohan.cn.util.MessageUtils;
 import com.xiaohan.cn.vo.PropertyInfo;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -30,7 +30,8 @@ public class ExportContant {
      */
     public static final Pattern MODEL_ERROR_CODE_PATTERN = Pattern.compile("^[0-9]{5}$");
 
-    public static final String REDIS_IMPORT_PREFIX = "import:";
+    private static final String REDIS_IMPORT_PREFIX = "import:";
+
     public static String getImportRedisKey(String type) {
         return REDIS_IMPORT_PREFIX + type;
     }

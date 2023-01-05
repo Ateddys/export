@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import top.legendscloud.db.generator.LegendsCodeGenerator;
 
 
-@MapperScan("com.xiaohan.cn.mapper")
+@MapperScan("com.xiaohan.cn.**.mapper")
 @SpringBootApplication(scanBasePackages = "com.xiaohan.cn")
 public class ExportUtilDemoServiceApplication implements ApplicationRunner {
 

@@ -1,4 +1,4 @@
-package com.xiaohan.cn.model;
+package com.xiaohan.cn.base.model;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;

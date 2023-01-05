@@ -18,7 +18,6 @@
     <modules>
         <module>export-common</module>
         <module>export-poi</module>
-        <module>export-db</module>
         <module>export-demo</module>
     </modules>
 
@@ -48,61 +47,52 @@
                 <artifactId>export-db</artifactId>
                 <version>${project.exportutil.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>top.legendscloud</groupId>
                 <artifactId>spring-cloud-legends-common</artifactId>
                 <version>${top.legendscloud}</version>
             </dependency>
-
             <dependency>
                 <groupId>top.legendscloud</groupId>
                 <artifactId>spring-cloud-legends-db-starter</artifactId>
                 <version>${top.legendscloud}</version>
             </dependency>
-
             <!--logBack-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-logging</artifactId>
                 <version>2.0.3.RELEASE</version>
             </dependency>
-
             <!-- fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>1.2.47</version>
             </dependency>
-
             <!--lombok-->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.16.20</version>
             </dependency>
-
             <!-- commons-long3-->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.8</version>
             </dependency>
-
             <!-- hutool-all-->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>5.7.20</version>
             </dependency>
-
             <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>2.0.4</version>
             </dependency>
-
             <!--mysql 连接驱动-->
             <dependency>
                 <groupId>mysql</groupId>
@@ -114,13 +104,11 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>3.4.2</version>
             </dependency>
-
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
                 <version>2.3.12.RELEASE</version>
             </dependency>
-
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>transmittable-thread-local</artifactId>
@@ -136,7 +124,6 @@
                 <artifactId>poi-ooxml</artifactId>
                 <version>5.0.0</version>
             </dependency>
-
             <!--mapStruct依赖-->
             <dependency>
                 <groupId>org.mapstruct</groupId>

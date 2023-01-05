@@ -21,35 +21,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-
-        <!-- spring-cloud-legends-common-->
-        <dependency>
-            <groupId>top.legendscloud</groupId>
-            <artifactId>spring-cloud-legends-common</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/top.legendscloud/spring-cloud-legends-db-starter -->
-        <dependency>
-            <groupId>top.legendscloud</groupId>
-            <artifactId>spring-cloud-legends-db-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.flywaydb</groupId>
-                    <artifactId>flyway-core</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!--lombok-->
         <dependency>
@@ -67,20 +42,40 @@
             <artifactId>hutool-all</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>transmittable-thread-local</artifactId>
-        </dependency>
-        <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>transmittable-thread-local</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/top.legendscloud/spring-cloud-legends-db-starter -->
+        <dependency>
+            <groupId>top.legendscloud</groupId>
+            <artifactId>spring-cloud-legends-db-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.flywaydb</groupId>
+                    <artifactId>flyway-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- spring-cloud-legends-common-->
+        <dependency>
+            <groupId>top.legendscloud</groupId>
+            <artifactId>spring-cloud-legends-common</artifactId>
         </dependency>
     </dependencies>
 

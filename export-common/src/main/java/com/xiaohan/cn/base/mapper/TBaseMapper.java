@@ -1,4 +1,4 @@
-package com.xiaohan.cn.mapper;
+package com.xiaohan.cn.base.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 

@@ -1,5 +1,6 @@
 package com.xiaohan.cn.service;
 
+import com.xiaohan.cn.base.service.TBaseService;
 import com.xiaohan.cn.model.TCat;
 
 /**
